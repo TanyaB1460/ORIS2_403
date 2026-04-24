@@ -16,6 +16,7 @@
         <module>lab2_3_jpa</module>
         <module>lab2_6_spring_security_jwt</module>
         <module>lab2_2_HW</module>
+        <module>lab2_2_spring_hw</module>
     </modules>
 
     <properties>

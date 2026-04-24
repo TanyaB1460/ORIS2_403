@@ -1,42 +1,34 @@
 package ru.itis.dis403.lab2_6.controller;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import ru.itis.dis403.lab2_6.dto.BookingDto;
+import ru.itis.dis403.lab2_6.dto.BookingUpdateRequest;
+import ru.itis.dis403.lab2_6.service.BookingService;
 import org.springframework.web.bind.annotation.*;
-import ru.itis.dis403.lab2_6.dto.AuthRequest;
-import ru.itis.dis403.lab2_6.dto.AuthResponse;
-import ru.itis.dis403.lab2_6.dto.BookingsResponse;
-import ru.itis.dis403.lab2_6.model.Booking;
-import ru.itis.dis403.lab2_6.repository.BookingRepository;
-import ru.itis.dis403.lab2_6.service.JWTService;
-import ru.itis.dis403.lab2_6.service.UserDetailImpl;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/booking")
+@RequestMapping("/api/bookings")
 public class BookingController {
 
-    private final BookingRepository bookingRepository;
+    private final BookingService bookingService;
 
-    public BookingController(BookingRepository bookingRepository) {
-        this.bookingRepository = bookingRepository;
+    public BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<BookingsResponse> getBookings() {
+    @GetMapping
+    public List<BookingDto> getAll() {
+        return bookingService.getAll();
+    }
 
-        UserDetailImpl userDetails =
-                (UserDetailImpl) SecurityContextHolder.getContext()
-                        .getAuthentication().getPrincipal();
+    @GetMapping("/{id}")
+    public BookingDto getOne(@PathVariable Long id) {
+        return bookingService.getById(id);
+    }
 
-        System.out.println(userDetails.getUser());
-        List<Booking> bookings = bookingRepository.findByHotel(userDetails.getUser().getHotel());
-
-        return ResponseEntity.ok(new BookingsResponse(bookings));
+    @PutMapping("/{id}")
+    public BookingDto update(@PathVariable Long id, @RequestBody BookingUpdateRequest request) {
+        return bookingService.update(id, request);
     }
 }

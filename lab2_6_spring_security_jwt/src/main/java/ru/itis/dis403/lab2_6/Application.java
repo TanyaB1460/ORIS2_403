@@ -1,17 +1,47 @@
 package ru.itis.dis403.lab2_6;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Application {
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import ru.itis.dis403.lab2_6.model.BookingsData;
+import ru.itis.dis403.lab2_6.model.Hotel;
+import ru.itis.dis403.lab2_6.repository.BookingRepository;
+import ru.itis.dis403.lab2_6.repository.HotelRepository;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
-        }
+import java.io.File;
+import java.io.IOException;
+
+@SpringBootApplication
+public class Application {
+    public static void main(String[] args) throws IOException {
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        System.out.println(encoder.encode("user"));
+        System.out.println(encoder.encode("admin"));
+
+
+        ApplicationContext context = SpringApplication.run(Application.class, args);
+
+/*
+        BookingRepository bookingRepository = context.getBean(BookingRepository.class);
+        HotelRepository hotelRepository = context.getBean(HotelRepository.class);
+
+        ObjectMapper mapper = new ObjectMapper();
+        BookingsData data = mapper.readValue(new File("bookings.json"), BookingsData.class);
+
+        data.getBookings().forEach(b -> {
+            Hotel hotel = b.getHotel();
+            if (!hotelRepository.existsById(b.getHotel().getId())) {
+                hotel = hotelRepository.save(hotel);
+                b.setHotel(hotel);
+            }
+            bookingRepository.save(b);
+        });
+
+
+*/
     }
+
 }

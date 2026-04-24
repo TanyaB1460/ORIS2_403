@@ -25,9 +25,15 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final UserDetailsService userDetailsService;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, UserDetailsService userDetailsService) {
+    private final RestAppSecurityExceptionHandler restAppSecurityExceptionHandler;
+    private final RestAppAccessDeniedHandler restAppAccessDeniedHandler;
+
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, UserDetailsService userDetailsService,
+                          RestAppSecurityExceptionHandler restAppSecurityExceptionHandler, RestAppAccessDeniedHandler restAppAccessDeniedHandler) {
         this.jwtAuthFilter = jwtAuthFilter;
         this.userDetailsService = userDetailsService;
+        this.restAppSecurityExceptionHandler = restAppSecurityExceptionHandler;
+        this.restAppAccessDeniedHandler = restAppAccessDeniedHandler;
     }
 
     @Bean
@@ -54,7 +60,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/static/**","/login","/app").permitAll()
+                        .requestMatchers("/static/**","/login","/app", "favicon.ico").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
@@ -63,7 +69,11 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(restAppSecurityExceptionHandler)
+                        .accessDeniedHandler(restAppAccessDeniedHandler)
+                );
 
         return http.build();
     }

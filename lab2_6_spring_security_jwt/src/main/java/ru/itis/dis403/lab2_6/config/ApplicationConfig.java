@@ -36,7 +36,7 @@ public class ApplicationConfig {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl("jdbc:postgresql://localhost:5432/lab2_6");
         config.setUsername("postgres");
-        config.setPassword("post");
+        config.setPassword("2685");
         config.setDriverClassName("org.postgresql.Driver");
         return config;
     }

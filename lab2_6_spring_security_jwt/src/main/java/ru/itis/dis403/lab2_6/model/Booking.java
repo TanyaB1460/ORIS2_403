@@ -1,7 +1,6 @@
 package ru.itis.dis403.lab2_6.model;
 
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 @Entity
@@ -10,16 +9,17 @@ public class Booking {
     private Long id;
 
     @Temporal(TemporalType.DATE)
-    private Date arrivaldate;
+    private Date arrivalDate;
 
     @Temporal(TemporalType.DATE)
-    private Date stayingdate;
+    private Date stayingDate;
 
     @Temporal(TemporalType.DATE)
-    private Date departuredate;
+    private Date departureDate;
 
     @ManyToOne
     private Hotel hotel;
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Person person;
 
@@ -31,28 +31,28 @@ public class Booking {
         this.id = id;
     }
 
-    public Date getArrivaldate() {
-        return arrivaldate;
+    public Date getArrivalDate() {
+        return arrivalDate;
     }
 
-    public void setArrivaldate(Date arrivaldate) {
-        this.arrivaldate = arrivaldate;
+    public void setArrivalDate(Date arrivalDate) {
+        this.arrivalDate = arrivalDate;
     }
 
-    public Date getStayingdate() {
-        return stayingdate;
+    public Date getStayingDate() {
+        return stayingDate;
     }
 
-    public void setStayingdate(Date stayingdate) {
-        this.stayingdate = stayingdate;
+    public void setStayingDate(Date stayingDate) {
+        this.stayingDate = stayingDate;
     }
 
-    public Date getDeparturedate() {
-        return departuredate;
+    public Date getDepartureDate() {
+        return departureDate;
     }
 
-    public void setDeparturedate(Date departuredate) {
-        this.departuredate = departuredate;
+    public void setDepartureDate(Date departureDate) {
+        this.departureDate = departureDate;
     }
 
     public Hotel getHotel() {
