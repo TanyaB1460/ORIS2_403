@@ -63,6 +63,7 @@ public class SecurityConfig {
                         .requestMatchers("/static/**","/login","/app", "favicon.ico").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/booking/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

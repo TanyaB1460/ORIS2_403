@@ -1,12 +1,15 @@
 package ru.itis.dis403.lab2_6.service;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.itis.dis403.lab2_6.dto.BookingDto;
 import ru.itis.dis403.lab2_6.dto.BookingUpdateRequest;
 import ru.itis.dis403.lab2_6.model.Booking;
+import ru.itis.dis403.lab2_6.model.User;
 import ru.itis.dis403.lab2_6.repository.BookingRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingService {
@@ -18,61 +21,65 @@ public class BookingService {
     }
 
     public List<BookingDto> getAll() {
-        return bookingRepository.findAll()
-                .stream()
-                .map(this::toDto)
-                .toList();
+        List<Booking> bookings = bookingRepository.findAll();
+        return bookings.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     public BookingDto getById(Long id) {
-        Booking booking = bookingRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Booking not found"));
-        return toDto(booking);
+        Booking b = bookingRepository.findById(id).orElse(null);
+        if (b == null) {
+            return null;
+        }
+        return convertToDto(b);
     }
 
-
-
-    private BookingDto toDto(Booking booking) {
-        return new BookingDto(
-                booking.getId(),
-                booking.getHotel() != null ? booking.getHotel().getName() : "",
-                booking.getPerson() != null ? String.valueOf(booking.getPerson().getGender()) : "",
-                booking.getPerson() != null && booking.getPerson().getBirthdate() != null
-                        ? booking.getPerson().getBirthdate().toString() : "",
-                booking.getPerson() != null ? booking.getPerson().getFromCity() : "",
-                booking.getArrivalDate() != null ? booking.getArrivalDate().toString() : "",
-                booking.getStayingDate() != null ? booking.getStayingDate().toString() : "",
-                booking.getDepartureDate() != null ? booking.getDepartureDate().toString() : ""
-        );
+    public BookingDto getBookingById(Long bookingId, User user) {
+        Booking b = bookingRepository.findByIdAndHotelId(bookingId, user.getHotel().getId());
+        if (b == null) {
+            return null;
+        }
+        return convertToDto(b);
     }
 
+    @Transactional
     public BookingDto update(Long id, BookingUpdateRequest request) {
-        Booking booking = bookingRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Booking not found"));
+        Booking b = bookingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Booking not found: " + id));
 
-        booking.setArrivalDate(
-                request.getArrivalDate() == null || request.getArrivalDate().isBlank()
-                        ? null
-                        : java.sql.Date.valueOf(request.getArrivalDate())
-        );
-
-        booking.setStayingDate(
-                request.getStayingDate() == null || request.getStayingDate().isBlank()
-                        ? null
-                        : java.sql.Date.valueOf(request.getStayingDate())
-        );
-
-        booking.setDepartureDate(
-                request.getDepartureDate() == null || request.getDepartureDate().isBlank()
-                        ? null
-                        : java.sql.Date.valueOf(request.getDepartureDate())
-        );
-
-        if (booking.getPerson() != null) {
-            booking.getPerson().setFromCity(request.getFromCity());
+        if (request.getArrivalDate() != null) {
+            b.setArrivalDate(request.getArrivalDate());
+        }
+        if (request.getStayingDate() != null) {
+            b.setStayingDate(request.getStayingDate());
+        }
+        if (request.getDepartureDate() != null) {
+            b.setDepartureDate(request.getDepartureDate());
         }
 
-        bookingRepository.save(booking);
-        return toDto(booking);
+        // Обновление имени персоны
+        if (request.getPersonName() != null && b.getPerson() != null) {
+            b.getPerson().setName(request.getPersonName());
+        }
+
+        bookingRepository.save(b);
+
+        return convertToDto(b);
+    }
+
+    private BookingDto convertToDto(Booking b) {
+        BookingDto dto = new BookingDto();
+        dto.setId(b.getId());
+        dto.setArrivalDate(b.getArrivalDate());
+        dto.setStayingDate(b.getStayingDate());
+        dto.setDepartureDate(b.getDepartureDate());
+        if (b.getPerson() != null) {
+            dto.setPersonId(b.getPerson().getId());
+            dto.setName(b.getPerson().getName());
+            dto.setGender(b.getPerson().getGender());
+            dto.setBirthDate(b.getPerson().getBirthdate());
+        }
+        return dto;
     }
 }

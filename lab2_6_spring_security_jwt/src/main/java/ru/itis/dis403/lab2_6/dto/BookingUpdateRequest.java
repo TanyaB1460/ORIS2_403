@@ -1,61 +1,46 @@
 package ru.itis.dis403.lab2_6.dto;
 
+import java.util.Date;
+
 public class BookingUpdateRequest {
-    private Long id;
-    private String arrivalDate;
-    private String stayingDate;
-    private String departureDate;
-    private String fromCity;
+
+    private Date arrivalDate;
+    private Date stayingDate;
+    private Date departureDate;
+    private String personName;  // ← добавили
 
     public BookingUpdateRequest() {
     }
 
-    public BookingUpdateRequest(Long id, String arrivalDate, String stayingDate,
-                                String departureDate, String fromCity) {
-        this.id = id;
-        this.arrivalDate = arrivalDate;
-        this.stayingDate = stayingDate;
-        this.departureDate = departureDate;
-        this.fromCity = fromCity;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getArrivalDate() {
+    public Date getArrivalDate() {
         return arrivalDate;
     }
 
-    public void setArrivalDate(String arrivalDate) {
-        this.arrivalDate = arrivalDate;
-    }
-
-    public String getStayingDate() {
+    public Date getStayingDate() {
         return stayingDate;
     }
 
-    public void setStayingDate(String stayingDate) {
-        this.stayingDate = stayingDate;
-    }
-
-    public String getDepartureDate() {
+    public Date getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(String departureDate) {
+    public String getPersonName() {        // ← добавили
+        return personName;
+    }
+
+    public void setArrivalDate(Date arrivalDate) {
+        this.arrivalDate = arrivalDate;
+    }
+
+    public void setStayingDate(Date stayingDate) {
+        this.stayingDate = stayingDate;
+    }
+
+    public void setDepartureDate(Date departureDate) {
         this.departureDate = departureDate;
     }
 
-    public String getFromCity() {
-        return fromCity;
-    }
-
-    public void setFromCity(String fromCity) {
-        this.fromCity = fromCity;
+    public void setPersonName(String personName) {   // ← добавили
+        this.personName = personName;
     }
 }

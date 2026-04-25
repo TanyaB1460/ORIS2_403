@@ -17,6 +17,12 @@
     <file url="file://$PROJECT_DIR$/lab2_5_spring_security/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lab2_6_spring_security_jwt/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lab2_6_spring_security_jwt/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lab2_8_HW/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lab2_8_HW/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lab2_8_nats/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lab2_8_nats/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lab8-nats-publisher/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lab8-nats-publisher/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>

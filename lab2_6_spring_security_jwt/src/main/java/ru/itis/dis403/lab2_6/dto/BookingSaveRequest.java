@@ -2,18 +2,19 @@ package ru.itis.dis403.lab2_6.dto;
 
 import java.util.Date;
 
-public class BookingDto {
+public class BookingSaveRequest {
 
     private Long id;
     private Date arrivalDate;
     private Date stayingDate;
     private Date departureDate;
     private Long personId;
-    private String name;
-    private String gender;
-    private Date birthDate;
+    private String personName;
+    private String personGender;
+    private Date personBirthdate;
+    private String room;
 
-    public BookingDto() {
+    public BookingSaveRequest() {
     }
 
     // Геттеры
@@ -37,16 +38,20 @@ public class BookingDto {
         return personId;
     }
 
-    public String getName() {
-        return name;
+    public String getPersonName() {
+        return personName;
     }
 
-    public String getGender() {
-        return gender;
+    public String getPersonGender() {
+        return personGender;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public Date getPersonBirthdate() {
+        return personBirthdate;
+    }
+
+    public String getRoom() {
+        return room;
     }
 
     // Сеттеры
@@ -70,15 +75,19 @@ public class BookingDto {
         this.personId = personId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPersonName(String personName) {
+        this.personName = personName;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setPersonGender(String personGender) {
+        this.personGender = personGender;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setPersonBirthdate(Date personBirthdate) {
+        this.personBirthdate = personBirthdate;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
     }
 }

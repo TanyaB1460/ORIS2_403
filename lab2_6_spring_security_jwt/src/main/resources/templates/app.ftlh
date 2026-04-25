@@ -1,23 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Тест</title>
+    <title>Система бронирования</title>
 </head>
 <body>
-
-<h1>Main page</h1>
-
-<h2></h2>
-
-username :
-
-<script>
-    let jwt_token = ${jwt_token!}
-    //localStorage.getItem('jwt_token');
-    //console.log(jwt_token);
-</script>
-
+<h1>Добро пожаловать</h1>
+<p>Вы авторизованы.</p>
 </body>
 </html>

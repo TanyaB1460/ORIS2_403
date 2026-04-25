@@ -17,6 +17,9 @@
         <module>lab2_6_spring_security_jwt</module>
         <module>lab2_2_HW</module>
         <module>lab2_2_spring_hw</module>
+        <module>lab2_8_nats</module>
+        <module>lab2_8_HW</module>
+        <module>lab8-nats-publisher</module>
     </modules>
 
     <properties>

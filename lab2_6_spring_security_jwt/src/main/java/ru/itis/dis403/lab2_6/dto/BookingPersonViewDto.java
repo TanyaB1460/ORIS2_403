@@ -3,6 +3,7 @@ package ru.itis.dis403.lab2_6.dto;
 import java.util.Date;
 
 public class BookingPersonViewDto {
+
     private Long id;
     private Date arrivaldate;
     private Date stayingdate;
@@ -12,64 +13,69 @@ public class BookingPersonViewDto {
     private Date birthdate;
     private String room;
 
-    public Long getId() {
-        return id;
+    public BookingPersonViewDto() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    // Геттеры
+    public Long getId() {
+        return id;
     }
 
     public Date getArrivaldate() {
         return arrivaldate;
     }
 
-    public void setArrivaldate(Date arrivaldate) {
-        this.arrivaldate = arrivaldate;
-    }
-
     public Date getStayingdate() {
         return stayingdate;
-    }
-
-    public void setStayingdate(Date stayingdate) {
-        this.stayingdate = stayingdate;
     }
 
     public Long getHotelId() {
         return hotelId;
     }
 
-    public void setHotelId(Long hotelId) {
-        this.hotelId = hotelId;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
-    }
-
     public String getRoom() {
         return room;
+    }
+
+    // Сеттеры
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setArrivaldate(Date arrivaldate) {
+        this.arrivaldate = arrivaldate;
+    }
+
+    public void setStayingdate(Date stayingdate) {
+        this.stayingdate = stayingdate;
+    }
+
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
 
     public void setRoom(String room) {
