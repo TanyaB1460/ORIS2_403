@@ -15,6 +15,4 @@ import java.io.File;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "ru.itis.dis403.lab2_6.repository")
 public class ApplicationConfig {
-    // ВСЁ УБРАЛИ — Spring Boot сам настроит DataSource, EntityManager и TransactionManager
-
 }

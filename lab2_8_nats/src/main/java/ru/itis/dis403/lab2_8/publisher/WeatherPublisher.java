@@ -1,6 +1,7 @@
 package ru.itis.dis403.lab2_8.publisher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.nats.client.Connection;
 import io.nats.client.Nats;
 import ru.itis.dis403.lab2_8.model.Weather;
@@ -14,7 +15,6 @@ public class WeatherPublisher {
 
         try (Connection nc = Nats.connect(natsUrl)) {
             Random random = new Random();
-            System.out.println("WeatherPublisher started, sending to " + natsUrl);
 
             while (true) {
                 Weather weather = new Weather();
@@ -26,10 +26,11 @@ public class WeatherPublisher {
                 weather.setDateTime(LocalDateTime.now());
 
                 ObjectMapper mapper = new ObjectMapper();
+                mapper.registerModule(new JavaTimeModule());
+
                 byte[] msg = mapper.writeValueAsBytes(weather);
 
                 nc.publish(subject, msg);
-                System.out.println("Published: " + weather.getTemp() + "°C at " + weather.getDateTime());
 
                 Thread.sleep(1000);
             }

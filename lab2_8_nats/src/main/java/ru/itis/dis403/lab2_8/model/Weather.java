@@ -22,7 +22,6 @@ public class Weather {
         this.dateTime = dateTime;
     }
 
-    // Геттеры и сеттеры
     public String getCity() { return city; }
     public void setCity(String city) { this.city = city; }
 

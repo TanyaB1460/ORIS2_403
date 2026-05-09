@@ -1,11 +1,9 @@
-package ru.itis.dis403.lab2_8.config;
+package ru.itis.dis403.lab2_9.httpclient.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan("ru.itis.dis403.lab2_8")
+@ComponentScan("ru.itis.dis403")
 public class ApplicationConfig {
-
 }

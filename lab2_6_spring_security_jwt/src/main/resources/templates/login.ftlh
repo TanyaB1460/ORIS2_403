@@ -92,11 +92,17 @@
     function show_bookings() {
         fetch('http://localhost:8090/api/booking/allview', {
             method: 'GET',
-            headers: { 'Authorization': 'Bearer ' + jwt_token }
+            headers: { 'Authorization': 'Bearer ' + jwt_token } //серверу отправляется JWT, полученный после логина
         })
-            .then(function(response) { return response.json(); })
-            .then(function(data) { make_table(data); })
-            .catch(function(error) { console.error('Error:', error); });
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                make_table(data);
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
     }
 
     function make_table(data) {
@@ -112,7 +118,7 @@
             var b = data.bookings[i];
             var tr = document.createElement('tr');
             tr.setAttribute('data-id', b.id);
-            tr.onclick = function() {
+            tr.onclick = function() { //обработчик клика по строке
                 edit_booking(this.getAttribute('data-id'), this);
             };
 
@@ -132,7 +138,9 @@
             method: 'GET',
             headers: { 'Authorization': 'Bearer ' + jwt_token }
         })
-            .then(function(response) { return response.json(); })
+            .then(function(response) {
+                return response.json();
+            })
             .then(function(data) {
                 document.getElementById('edit_id').value = data.id;
                 document.getElementById('edit_arrivalDate').value = data.arrivalDate ? data.arrivalDate.split('T')[0] : '';

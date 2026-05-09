@@ -1,4 +1,4 @@
-package ru.itis.dis403.lab2_8;
+package ru.itis.dis403.lab2_9.httpclient;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

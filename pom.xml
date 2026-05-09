@@ -18,8 +18,8 @@
         <module>lab2_2_HW</module>
         <module>lab2_2_spring_hw</module>
         <module>lab2_8_nats</module>
-        <module>lab2_8_HW</module>
         <module>lab8-nats-publisher</module>
+        <module>lab2_9_inner_service</module>
     </modules>
 
     <properties>

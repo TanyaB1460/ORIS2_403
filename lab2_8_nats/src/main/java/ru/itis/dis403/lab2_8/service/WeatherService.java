@@ -1,6 +1,8 @@
 package ru.itis.dis403.lab2_8.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.nats.client.Connection;
 import io.nats.client.Nats;
 import io.nats.client.Subscription;
@@ -16,16 +18,19 @@ public class WeatherService {
     private Connection natsConnection;
     private Subscription subscription;
     private Weather cachedWeather;
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @PostConstruct
     public void init() {
         try {
+            mapper.registerModule(new JavaTimeModule());
+            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
             String natsUrl = System.getenv().getOrDefault("NATS_URL", "nats://localhost:4222");
             natsConnection = Nats.connect(natsUrl);
             subscription = natsConnection.subscribe("Weather");
-            System.out.println("Connected to NATS at " + natsUrl);
         } catch (Exception e) {
-            System.err.println("Failed to connect to NATS: " + e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
@@ -34,13 +39,11 @@ public class WeatherService {
             if (subscription != null) {
                 var msg = subscription.nextMessage(Duration.ofMillis(500));
                 if (msg != null) {
-                    ObjectMapper mapper = new ObjectMapper();
                     cachedWeather = mapper.readValue(msg.getData(), Weather.class);
-                    System.out.println("Received: " + cachedWeather.getTemp() + "°C");
                 }
             }
         } catch (Exception e) {
-            System.err.println("Error receiving message: " + e.getMessage());
+            System.err.println(e.getMessage());
         }
 
         if (cachedWeather == null) {
